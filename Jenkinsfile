@@ -21,21 +21,9 @@ node () {
    }
    stage('Build') {
       // Run the maven build
-      try{
-        if (isUnix()) {
-           sh "./mvnw  -B -Dmaven.test.failure.ignore -Drat.skip=true -f pom.xml clean package -U"
-        } else {
-           bat(/mvnw.cmd -B -Dmaven.test.failure.ignore -Drat.skip=true clean package/)
-        }
-        
-        currentBuild.result = 'SUCCESS'
+      sh "mvn clean install"
 
-      }catch(Exception err){
-        currentBuild.result = 'FAILURE'
-      
-      }
-
-      sh "echo current build status ${currentBuild.result}"
+      //sh "echo current build status ${currentBuild.result}"
       /*
       if (currentBuild.result == 'FAILURE') {
         postGitHub(commitId, 'failure', 'build', 'Build failed')
@@ -50,7 +38,7 @@ node () {
    stage('Lifecycle Evaluation'){
     // postGitHub commitId, 'pending', 'analysis', 'Nexus Lifecycle Analysis is running'
 
-      def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('webgoat'), iqStage: 'stage-release', jobCredentialsId: ''
+      def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('test'), iqStage: 'stage-release', jobCredentialsId: ''
     /*  if (currentBuild.result == 'FAILURE'){
         postGitHub commitId, 'failure', 'analysis', 'Nexus Lifecycle Analysis failed',"${policyEvaluationResult.applicationCompositionReportUrl}"
         return
@@ -63,21 +51,21 @@ node () {
    stage('Build Docker Image'){
     sh 'pwd'
     sh 'ls -l'
-    sh 'docker build -t struts2-rce:latest .'
+    sh 'docker build -t jessewebgoat:latest .'
    }
    
    stage('Deploy Docker Image'){
-    sh 'docker run -d -p 9080:8080 struts2-rce:latest'
+    sh 'docker-compose up -d'
    }
    
    stage('Done testing?'){
     input 'Done?'
    }
    
-   stage('Kill running Struts container'){
-    sh 'docker ps -a | awk \'{ print $1,$2 }\' | grep struts2-rce | awk \'{print $1 }\' | xargs -I {} docker kill {}'
-    sh 'mvn -v'
-   }
+   //stage('Kill running Struts container'){
+   // sh 'docker ps -a | awk \'{ print $1,$2 }\' | grep struts2-rce | awk \'{print $1 }\' | xargs -I {} docker kill {}'
+    //sh 'mvn -v'
+   //}
    
 }
 
