@@ -15,7 +15,7 @@ services:
       - webgoat.server.directory=/home/webgoat/.webgoat/
       - webgoat.user.directory=/home/webgoat/.webgoat/
     ports:
-      - "8080:8080"
+      - "9080:9080"
   webwolf:
     image: webgoat/webwolf
     environment:

