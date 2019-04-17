@@ -6,7 +6,7 @@ node () {
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
       // git 'git@github.com:CMYanko/struts2-showcase-demo.git'
-      checkout scm
+      //checkout scm
       
       
       // Get the Maven tool.
@@ -21,6 +21,8 @@ node () {
    }
    stage('Build') {
       // Run the maven build
+      checkout scm
+      
       sh "mvn clean install"
 
       //sh "echo current build status ${currentBuild.result}"
