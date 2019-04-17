@@ -51,11 +51,11 @@ node () {
    stage('Build Docker Image'){
     sh 'pwd'
     sh 'ls -l'
-    sh 'docker build -t jessewebgoat:latest .'
+    sh 'cd webgoat-server && docker build -t jessewebgoat:latest .'
    }
    
    stage('Deploy Docker Image'){
-    sh 'docker-compose up -d'
+    sh 'cd .. && docker-compose up -d'
    }
    
    stage('Done testing?'){
