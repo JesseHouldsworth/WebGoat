@@ -6,7 +6,7 @@ node () {
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
       // git 'git@github.com:CMYanko/struts2-showcase-demo.git'
-      //checkout scm
+      checkout scm
       
       
       // Get the Maven tool.
@@ -21,7 +21,6 @@ node () {
    }
    stage('Build') {
       // Run the maven build
-      checkout scm
       
       sh "mvn clean install"
 
@@ -57,11 +56,6 @@ node () {
    }
    
    stage('Deploy Docker Image'){
-    sh 'pwd'
-    sh 'ls -l'
-    sh 'cd ..'
-    sh 'pwd'
-    sh 'ls -l'
     sh 'docker-compose up -d'
    }
    
@@ -69,10 +63,10 @@ node () {
     input 'Done?'
    }
    
-   //stage('Kill running Struts container'){
-   // sh 'docker ps -a | awk \'{ print $1,$2 }\' | grep struts2-rce | awk \'{print $1 }\' | xargs -I {} docker kill {}'
-    //sh 'mvn -v'
-   //}
+   stage('Kill running WebGoat containers'){
+    sh 'docker ps -a | awk \'{ print $1,$2 }\' | jessewebgoat | awk \'{print $1 }\' | xargs -I {} docker kill {}'
+    sh 'docker ps -a | awk \'{ print $1,$2 }\' | webwolf | awk \'{print $1 }\' | xargs -I {} docker kill {}'
+   }
    
 }
 
