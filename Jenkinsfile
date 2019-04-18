@@ -1,7 +1,7 @@
 import groovy.json.*
 
 node () {
-   def mvnHome, commitId
+   //def mvnHome, commitId
     
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
