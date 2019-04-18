@@ -61,8 +61,8 @@ node () {
    }
    
    stage('Kill running WebGoat containers'){
-    sh 'docker ps -a | awk \'{ print $1,$2 }\' | jessewebgoat | awk \'{print $1 }\' | xargs -I {} docker kill {}'
-    sh 'docker ps -a | awk \'{ print $1,$2 }\' | webwolf | awk \'{print $1 }\' | xargs -I {} docker kill {}'
+    sh 'docker ps -a | awk \'{ print $1,$2 }\' | grep jessewebgoat | awk \'{print $1 }\' | xargs -I {} docker kill {}'
+    sh 'docker ps -a | awk \'{ print $1,$2 }\' | grep webwolf | awk \'{print $1 }\' | xargs -I {} docker kill {}'
    }
    
 }
