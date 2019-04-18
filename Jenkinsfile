@@ -57,7 +57,12 @@ node () {
    }
    
    stage('Deploy Docker Image'){
-    sh 'cd .. && docker-compose up -d'
+    sh 'pwd'
+    sh 'ls -l'
+    sh 'cd ..'
+    sh 'pwd'
+    sh 'ls -l'
+    sh 'docker-compose up -d'
    }
    
    stage('Done testing?'){
