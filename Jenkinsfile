@@ -1,7 +1,7 @@
 import groovy.json.*
 
 node () {
-   //def mvnHome, commitId
+   def mvnHome
     
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
@@ -12,7 +12,7 @@ node () {
       // Get the Maven tool.
       // ** NOTE: This 'M3' Maven tool must be configured
       // **       in the global configuration.           
-      // mvnHome = tool 'M3'
+      mvnHome = tool 'M3'
       
       // sh 'git rev-parse HEAD > commit'
       // commitId = readFile('commit').trim()
@@ -22,7 +22,7 @@ node () {
    stage('Build') {
       // Run the maven build
       
-      sh "mvn clean install"
+      sh "'${mvnHome}/bin/mvn' clean install"
 
       //sh "echo current build status ${currentBuild.result}"
       /*
