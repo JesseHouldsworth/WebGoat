@@ -21,9 +21,12 @@ node () {
    }
    stage('Build') {
       // Run the maven build
-      
       sh "'${mvnHome}/bin/mvn' clean install"
-
+      
+      // Nexus Policy evaluation
+      def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('test'), iqStage: 'build', jobCredentialsId: ''
+      
+      
       //sh "echo current build status ${currentBuild.result}"
       /*
       if (currentBuild.result == 'FAILURE') {
@@ -35,20 +38,11 @@ node () {
       
    }
 
-   
-   stage('Lifecycle Evaluation'){
-    // postGitHub commitId, 'pending', 'analysis', 'Nexus Lifecycle Analysis is running'
-
-      def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('test'), iqStage: 'stage-release', jobCredentialsId: ''
-    /*  if (currentBuild.result == 'FAILURE'){
-        postGitHub commitId, 'failure', 'analysis', 'Nexus Lifecycle Analysis failed',"${policyEvaluationResult.applicationCompositionReportUrl}"
-        return
-      } else {
-        postGitHub commitId, 'success', 'analysis', 'Nexus Lifecycle Analysis succeeded',"${policyEvaluationResult.applicationCompositionReportUrl}"
-      } */
-   }
-
    stage('Build Docker Image'){
+    // Scan application with Release policies applied
+    def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('test'), iqStage: 'stage-release', jobCredentialsId: ''
+    
+    // Build the image
     sh 'cd webgoat-server && docker build -t jessewebgoat:latest .'
    }
 
