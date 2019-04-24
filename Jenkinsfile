@@ -19,7 +19,7 @@ node () {
       // sh "echo my commitid ${commitId}"
 
    }
-   stage('Build') {
+   stage('Build the application') {
       // Run the maven build
       sh "'${mvnHome}/bin/mvn' clean install"
       
@@ -38,7 +38,7 @@ node () {
       
    }
 
-   stage('Build Docker Image'){
+   stage('Build the Docker Image'){
     // Scan application with Release policies applied
     def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('test'), iqStage: 'stage-release', jobCredentialsId: ''
     
