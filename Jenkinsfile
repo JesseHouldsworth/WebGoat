@@ -43,7 +43,7 @@ node () {
     def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('test'), iqStage: 'stage-release', jobCredentialsId: ''
     
     // Build the image
-    sh 'cd webgoat-server && docker build --group-add docker -t jessewebgoat:latest .'
+    sh 'cd webgoat-server && docker build -t jessewebgoat:latest .'
    }
 
    stage('Deploy Docker Image'){
