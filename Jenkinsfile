@@ -42,9 +42,9 @@ node () {
    stage('Kill running WebGoat containers'){
     sh 'docker ps -a | awk \'{ print $1,$2 }\' | grep jessewebgoat | awk \'{print $1 }\' | xargs -I {} docker kill {}'
     sh 'docker ps -a | awk \'{ print $1,$2 }\' | grep webwolf | awk \'{print $1 }\' | xargs -I {} docker kill {}'
-   }
+   }*/
    
-}*/
+}
 
 def postGitHub(commitId, state, context, description, target_url="http://localhost:8080") {
          def payload = JsonOutput.toJson(
