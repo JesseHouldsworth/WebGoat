@@ -21,10 +21,10 @@ node () {
    }
    stage('Build the application') {
       // Run the maven build
-      sh "'${mvnHome}/bin/mvn' clean install"
+      //sh "'${mvnHome}/bin/mvn' clean install"
       
       // Nexus Policy evaluation
-      def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('test'), iqStage: 'build', jobCredentialsId: ''
+      //def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('test'), iqStage: 'build', jobCredentialsId: ''
       
       
       //sh "echo current build status ${currentBuild.result}"
