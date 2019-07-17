@@ -40,7 +40,7 @@ node () {
 
    stage('Build the Docker Image'){
     // Scan application with Release policies applied
-    def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('test'), iqStage: 'stage-release', jobCredentialsId: ''
+    //def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('test'), iqStage: 'stage-release', jobCredentialsId: ''
     
     // Build the image
     sh 'cd webgoat-server && docker build -t jessewebgoat:latest .'
