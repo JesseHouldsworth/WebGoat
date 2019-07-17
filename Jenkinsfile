@@ -13,31 +13,16 @@ node () {
       // ** NOTE: This 'M3' Maven tool must be configured
       // **       in the global configuration.           
       mvnHome = tool 'M3'
-      
-      // sh 'git rev-parse HEAD > commit'
-      // commitId = readFile('commit').trim()
-      // sh "echo my commitid ${commitId}"
-
    }
    stage('Build the application') {
       // Run the maven build
-      //sh "'${mvnHome}/bin/mvn' clean install"
-      
-      // Nexus Policy evaluation
-      //def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('test'), iqStage: 'build', jobCredentialsId: ''
-      
-      
-      //sh "echo current build status ${currentBuild.result}"
-      /*
-      if (currentBuild.result == 'FAILURE') {
-        postGitHub(commitId, 'failure', 'build', 'Build failed')
-        return
-      } else {
-        postGitHub(commitId, 'success', 'build', 'Build succeeded')
-      } */
-      
+      sh "'${mvnHome}/bin/mvn' clean install"
    }
-
+   stage('Test the application') {
+      // Run the maven build
+      def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('test'), iqStage: 'build', jobCredentialsId: ''
+   }
+/*
    stage('Build the Docker Image'){
     // Scan application with Release policies applied
     //def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('test'), iqStage: 'stage-release', jobCredentialsId: ''
@@ -59,7 +44,7 @@ node () {
     sh 'docker ps -a | awk \'{ print $1,$2 }\' | grep webwolf | awk \'{print $1 }\' | xargs -I {} docker kill {}'
    }
    
-}
+}*/
 
 def postGitHub(commitId, state, context, description, target_url="http://localhost:8080") {
          def payload = JsonOutput.toJson(
