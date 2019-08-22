@@ -16,7 +16,7 @@ node () {
    }
    stage('Build the application') {
       // Run the maven build
-      //sh "'${mvnHome}/bin/mvn' clean install"
+      sh "'${mvnHome}/bin/mvn' clean install"
    }
    stage('Test the application') {
       // Run the maven build
