@@ -5,7 +5,7 @@ node () {
     
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
-      // git 'git@github.com:CMYanko/struts2-showcase-demo.git'
+      git 'git@github.com:CMYanko/struts2-showcase-demo.git'
       checkout scm
       
       
@@ -19,7 +19,7 @@ node () {
       //sh "'${mvnHome}/bin/mvn' clean install"
    }
    stage('Test the application') {
-      // Run the maven build
+      // Run the Sonatype scan
       def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('webgoat8'), iqStage: 'build', jobCredentialsId: ''
    } 
    stage('Deploy the application') {
