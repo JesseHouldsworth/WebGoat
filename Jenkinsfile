@@ -20,7 +20,7 @@ node () {
    }
    stage('Test the application') {
       // Run the maven build
-      def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('test'), iqStage: 'build', jobCredentialsId: ''
+      def policyEvaluationResult = nexusPolicyEvaluation failBuildOnNetworkError: false, iqApplication: manualApplication('webgoat8'), iqStage: 'build', jobCredentialsId: ''
    } 
    stage('Deploy the application') {
       // deploy script.....
