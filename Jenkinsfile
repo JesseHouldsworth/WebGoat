@@ -5,7 +5,7 @@ node () {
     
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
-      git 'git@github.com:CMYanko/struts2-showcase-demo.git'
+      git 'https://github.com/JesseHouldsworth/WebGoat'
       checkout scm
       
       
