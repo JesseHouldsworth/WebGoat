@@ -8,7 +8,6 @@ node () {
       git 'https://github.com/JesseHouldsworth/WebGoat'
       checkout scm
       
-      
       // Get the Maven tool.
       // ** NOTE: This 'M3' Maven tool must be configured
       // **       in the global configuration.           
@@ -16,7 +15,7 @@ node () {
    }
    stage('Build the application') {
       // Run the maven build
-      //sh "'${mvnHome}/bin/mvn' clean install"
+      sh "'${mvnHome}/bin/mvn' clean install"
    }
    stage('Test the application') {
       // Run the Sonatype scan
