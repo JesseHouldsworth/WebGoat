@@ -85,27 +85,7 @@ jobs:
           jf scan "$latest_jar"
 
       #################################################
-      # 9) Build Docker Image
-      #################################################
-      - name: Build Docker Image
-        run: |
-          docker build -t trialt0zppb.jfrog.io/onboarding-docker-local/webgoat:${{ github.run_id }} .
-        # Builds the application into a Docker image and tags it with the GitHub run ID
-
-      #################################################
-      # 10) Push Docker Image to JFrog Artifactory
-      #################################################
-      - name: Docker Push to Artifactory
-        run: |
-          jfrog rt docker-push \
-            trialt0zppb.jfrog.io/onboarding-docker-local/webgoat:${{ github.run_id }} \
-            onboarding-docker-local \
-            --build-name="webgoat" \
-            --build-number="${{ github.run_id }}"
-        # Uploads the built Docker image to Artifactory for storage and deployment
-
-      #################################################
-      # 11) Publish Build Information to JFrog
+      # 9) Publish Build Information to JFrog
       #################################################
       - name: Publish Build Info
         run: |
