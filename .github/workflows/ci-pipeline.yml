@@ -2,7 +2,10 @@ name: Build with JFrog CLI (Forcing New Extractor)
 
 on:
   push:
-    branches: [ "main" ]  # Trigger workflow on push to the main branch
+    branches:
+      - master
+      - develop
+
   pull_request:
     branches: [ "main" ]  # Trigger workflow on pull requests targeting main
 
