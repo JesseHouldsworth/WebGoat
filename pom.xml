@@ -4,8 +4,8 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.owasp.webgoat</groupId>
-    <artifactId>webgoat-container</artifactId>  <!-- Changed to make this the deployable application -->
-    <packaging>war</packaging>  <!-- Generates a WAR instead of a POM -->
+    <artifactId>webgoat-container</artifactId>  <!-- Changed to deployable app -->
+    <packaging>war</packaging>  <!-- This ensures WAR file is built -->
     <version>v8.0.0-SNAPSHOT</version>
 
     <name>WebGoat Application</name>
@@ -18,7 +18,7 @@
     </parent>
 
     <properties>
-        <!-- Java Compatibility (Java 8 or Java 11) -->
+        <!-- Java Compatibility -->
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
 
@@ -26,13 +26,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!-- Maven Plugin Versions -->
+        <!-- Plugin Versions -->
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <maven-war-plugin.version>3.3.2</maven-war-plugin.version>  <!-- Added WAR plugin -->
+        <maven-war-plugin.version>3.3.2</maven-war-plugin.version>
     </properties>
 
     <dependencies>
-        <!-- Spring Boot Web Dependency (Required for WAR) -->
+        <!-- Spring Boot Web (Required for WAR Deployment) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -76,7 +76,7 @@
 
     <build>
         <plugins>
-            <!-- Maven Compiler Plugin (Fix for Java 17) -->
+            <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -91,7 +91,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Maven WAR Plugin (Required for Building WAR Files) -->
+            <!-- Maven WAR Plugin (Ensures WAR File is Built) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -101,10 +101,13 @@
                 </configuration>
             </plugin>
 
-            <!-- Maven Spring Boot Plugin (Supports WAR Deployment) -->
+            <!-- Spring Boot Maven Plugin (Fix for Main Class Issue) -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>org.owasp.webgoat.StartWebGoat</mainClass>  <!-- Define Main Class -->
+                </configuration>
             </plugin>
 
             <!-- Maven Release Plugin -->
